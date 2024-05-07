@@ -1,8 +1,8 @@
 SELECT *
 FROM departments
-JOIN role ON departments.role = department.id;
+JOIN roles ON departments.role = department.id;
 
-FROM role 
+FROM roles
 JOIN employee ON role.employee = role.id;
 
 FROM employee
