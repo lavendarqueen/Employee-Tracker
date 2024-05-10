@@ -142,7 +142,7 @@ function addRole() {
     ])
     .then(({ title, salary, department_id }) => {
       pool.query(
-        `INSERT into role(title, salary, department_id) VALUES ($1, $2, $3)`[
+        `INSERT into roles(title, salary, department_id) VALUES ($1, $2, $3)`[
           (roleTitle, salary, department_id)
         ],
         (err, { rows }) => {
@@ -174,6 +174,24 @@ function addEmployee() {
           startApp();
         }
       );
+    });
+}
+
+function updateRole() {
+  inquirer
+    .prompt([
+      {
+        type: "input",
+        name: "newTitle",
+        message: "What is the title of the new role?",
+      },
+    ])
+    .then(({ employee }) => {
+      pool.query(`UPDATE `[(employee, role, manager)], (err, { rows }) => {
+        if (err) console.log(err.message);
+        console.log("Employee role successfully updated");
+        startApp();
+      });
     });
 }
 

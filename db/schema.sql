@@ -3,22 +3,22 @@ CREATE DATABASE department_db;
 
 \c department_db;
 
-CREATE TABLE departments(
+CREATE TABLE department(
     id SERIAL PRIMARY KEY,
     name VARCHAR (30) NOT NULL
 );
 
-CREATE TABLE role(
+CREATE TABLE roles(
     id SERIAL PRIMARY KEY,
     title VARCHAR(30) NOT NULL,
     salary DECIMAL,
     department_id INTEGER
-    id FOREIGN KEY (departments)
-    REFERENCES departments(id)
+    id FOREIGN KEY (department)
+    REFERENCES department(id)
     ON DELETE SET NULL
 );    
 
-CREATE TABLE employee(
+CREATE TABLE employees(
     id SERIAL PRIMARY KEY,
     first_name VARCHAR(30) NOT NULL,
     last_name VARCHAR(30) NOT NULL,
@@ -38,8 +38,8 @@ CREATE TABLE manager(
     id FOREIGN KEY (roles)
     REFERENCES roles(id)
     ON DELETE SET NULL
-    id FOREIGN KEY (employee)
-    REFERENCES employee(id)
+    id FOREIGN KEY (employees)
+    REFERENCES employees(id)
     ON DELETE SET NULL
     id FOREIGN KEY (departments)
     REFERENCES departments(id)
