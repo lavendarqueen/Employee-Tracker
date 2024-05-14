@@ -62,7 +62,7 @@ function startApp() {
           break;
 
         case "Update an employee role":
-          updateEmployee();
+          updateEmployeeRole();
           break;
 
         case "Quit":
@@ -72,7 +72,7 @@ function startApp() {
 }
 
 function viewDepts() {
-  pool.query("select * from departments", (err, { rows }) => {
+  pool.query("select * from department", (err, { rows }) => {
     if (err) console.log(err.message);
     console.table(rows);
     startApp();
@@ -81,7 +81,7 @@ function viewDepts() {
 
 function viewRoles() {
   pool.query(
-    "select role.title, role.salary, departments.name from role join departments on role.department_id = departments.id",
+    "select roles.title, roles.salary, department.name from roles join department on roles.department_id = department.id",
     (err, { rows }) => {
       if (err) console.log(err.message);
       console.table(rows);
@@ -91,7 +91,7 @@ function viewRoles() {
 }
 
 function viewEmployees() {
-  const sql = `SELECT employee.id, employee.first_name AS "first name", employee.last_name AS "last name", role.title, departments.name AS departments, role.salary, manager.first_name || ' ' || manager.last_name AS manager FROM employee LEFT JOIN role ON employee.role_id = role.id LEFT JOIN departments ON role.department_id = departments.id LEFT JOIN employee manager ON manager.id = employee.manager_id`;
+  const sql = `SELECT employees.id, employees.first_name AS "first name", employees.last_name AS "last name", roles.title, department.name AS departments, roles.salary, manager.first_name || ' ' || manager.last_name AS manager FROM employees LEFT JOIN roles ON employees.role_id = roles.id LEFT JOIN department ON roles.department_id = department.id LEFT JOIN employees manager ON manager.id = employees.manager_id`;
 
   pool.query(sql, (err, { rows }) => {
     if (err) console.log(err.message);
@@ -111,9 +111,9 @@ function addDepartment() {
     ])
     .then(({ department }) => {
       pool.query(
-        `INSERT into departments(name) values ($1::varchar)`,
+        `INSERT into department (name) values ($1::varchar)`,
         [department],
-        (err, { rows }) => {
+        (err) => {
           if (err) console.log(err.message);
           console.log("Department successfully inserted");
           startApp();
@@ -122,7 +122,10 @@ function addDepartment() {
     });
 }
 
-function addRole() {
+async function addRole() {
+  const departments = await pool.query(
+    "SELECT id as value, name as name FROM department"
+  );
   inquirer
     .prompt([
       {
@@ -136,62 +139,125 @@ function addRole() {
         message: "What is the salary of the new role?",
       },
       {
-        type: "input",
+        type: "list",
         name: "department_id",
+        message: "What department does the new role belong to?",
+        choices: departments.rows,
       },
     ])
     .then(({ title, salary, department_id }) => {
       pool.query(
-        `INSERT into roles(title, salary, department_id) VALUES ($1, $2, $3)`[
-          (roleTitle, salary, department_id)
-        ],
-        (err, { rows }) => {
-          if (err) console.log(err.message);
-          console.log("Role added successfully.");
+        `INSERT into roles (title, salary, department_id) VALUES ($1, $2, $3)`,
+        [title, salary, department_id],
+        (err) => {
+          if (err) {
+            console.log(err.message);
+          } else {
+            console.log("Role added successfully.");
+          }
           startApp();
         }
       );
     });
 }
 
-function addEmployee() {
+async function addEmployee() {
+  const roles = await pool.query(
+    "select id as value, title as name from roles"
+  );
+  const managers = await pool.query(
+    "select id as value, first_name || ' ' || last_name as name from employees"
+  );
   inquirer
     .prompt([
       {
         type: "input",
-        name: "employee",
-        message: "What is the name of the new employee?",
+        name: "fname",
+        message: "What is the first name of the new employee?",
+      },
+      {
+        type: "input",
+        name: "lname",
+        message: "What is the last name of the new employee?",
+      },
+      {
+        type: "list",
+        name: "role_id",
+        message: "What is the new employees role?",
+        choices: roles.rows,
+      },
+      {
+        type: "list",
+        name: "manager_id",
+        message: "Who is the new employee's manager?",
+        choices: managers.rows,
       },
     ])
-    .then(({ employee }) => {
+    .then(({ fname, lname, role_id, manager_id }) => {
       pool.query(
-        `INSERT employee.id, employee.first_name AS "first name", employee.last_name AS "last name", role.title, departments.name AS departments, role.salary, manager.first_name || ' ' || manager.last_name AS manager FROM employee LEFT JOIN role ON employee.role_id = role.id LEFT JOIN departments ON role.department_id = departments.id LEFT JOIN employee manager ON manager.id = employee.manager_id`[
-          (employee, role, departments, manager)
-        ],
-        (err, { rows }) => {
-          if (err) console.log(err.message);
-          console.log("Employee successfully inserted");
+        `INSERT into employees (first_name, last_name, role_id, manager_id) values ($1, $2, $3, $4)`,
+        [fname, lname, role_id, manager_id],
+        (err) => {
+          if (err) {
+            console.log(err.message);
+          } else console.log("Employee successfully inserted");
           startApp();
         }
       );
     });
 }
 
-function updateRole() {
+async function updateEmployeeRole() {
+  const employees = await pool.query(
+    `SELECT id as value, first_name || ' ' || last_name as name from employees`
+  );
+  const { roles, salary, manager, departments } = await pool.query(
+    `UPDATE (title, salary, manager, department_id) VALUES ($1, $2, $3, $4)`
+  );
   inquirer
     .prompt([
       {
-        type: "input",
-        name: "newTitle",
+        type: "list",
+        name: "employee",
+        message: "Which employee is changing roles?",
+        choices: employees.rows,
+      },
+      {
+        type: "list",
+        name: "role_id",
         message: "What is the title of the new role?",
+        choices: roles.rows,
+      },
+      {
+        type: "input",
+        name: "salary",
+        message: "What is the salary for the employee's new role?",
+      },
+      {
+        type: "list",
+        name: "manager_id",
+        message: "What is the name of the employee's manager?",
+        choices: manager.rows,
+      },
+      {
+        type: "list",
+        name: "department_id",
+        message: "What department does the new role belong to?",
+        choices: departments.rows,
       },
     ])
-    .then(({ employee }) => {
-      pool.query(`UPDATE `[(employee, role, manager)], (err, { rows }) => {
-        if (err) console.log(err.message);
-        console.log("Employee role successfully updated");
-        startApp();
-      });
+    .then(({ employees, roles, salary, manager, department_id }) => {
+      pool.query(
+        `UPDATE `[(employees, roles, salary, manager, department_id)],
+        (err) => {
+          if (err) {
+            console.log(err.message);
+          } else {
+            console.log("Employee role updated successfully.");
+          }
+          startApp();
+        }
+      );
     });
 }
 
