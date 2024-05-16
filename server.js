@@ -211,8 +211,9 @@ async function updateEmployeeRole() {
   const employees = await pool.query(
     `SELECT id as value, first_name || ' ' || last_name as name from employees`
   );
-  const { roles, salary, manager, departments } = await pool.query(
-    `UPDATE (title, salary, manager, department_id) VALUES ($1, $2, $3, $4)`
+
+  const roles = await pool.query(
+    "SELECT id as value, title as name from roles"
   );
   inquirer
     .prompt([
