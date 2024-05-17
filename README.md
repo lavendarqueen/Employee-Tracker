@@ -18,7 +18,7 @@ Employee Tracker is a content management system that is run from the command lin
 
 ## Installation
 
-Installation of Employee-Tracker requires the user to input the following commands in the command line:
+Installation of Employee-Tracker required importing the following libraries:
 
 1. npm i
 2. npm install pg
@@ -26,19 +26,23 @@ Installation of Employee-Tracker requires the user to input the following comman
 
 ## Usage
 
-Following installation of the above packages, the user enters the following input in the command line:
+Import of the libraries described above has already been done. The user needs only to enter the following input in the command line:
 
 node server.js
 
-A list of the functions mentioned in the description above appears and the user can select a function, such as "add an employee" using the down arrows on the keyboard. Employee-Tracker performs the function. The user can then verify the result by using the up/down arrows to view all employees as seen in the following screenshots:
+A list of the functions mentioned in the description above appears and the user can select a function, such as "add an employee" using the down arrows on the keyboard. Employee-Tracker performs the function. The user can then verify the result by using the up/down arrows to view all employees as seen in the following screenshots.
 
-    ![alt text](assets/images/screenshot.png)
-
-    ![alt text](assets/images/screenshot.png)
+![List of Available Functions](/assets/images/ScreenshotFunctionList.png)
 
 ## Tests
 
-All of the functions associated with this project were tested using pgAdmin as shown in the walk-through video: <LINK TO WALK-THROUGH VIDEO>
+All of the functions associated with this project were tested using pgAdmin as shown in the following example screenshots:
+
+![Test View All Employeess](/assets/images/ScreenshotViewAllEmployees.png)
+
+![Test Add An Employee](/assets/images/ScreenshoAddEmployee.png)
+
+![Test Update a Department](/assets/images/ScreenshotUpdateEmployeeRole.png)
 
 ## Credits
 
@@ -112,4 +116,4 @@ THEN I am prompted to enter the name, salary, and department for the role and th
 WHEN I choose to add an employee
 THEN I am prompted to enter the employee’s first name, last name, role, and manager, and that employee is added to the database
 WHEN I choose to update an employee role
-THEN I am prompted to select an employee to update and their new role and this information is up
+THEN I am prompted to select an employee to update and their new role and this information is updated in the database

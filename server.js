@@ -72,7 +72,7 @@ function startApp() {
 }
 
 function viewDepts() {
-  pool.query("select * from department", (err, { rows }) => {
+  pool.query("SELECT * FROM department", (err, { rows }) => {
     if (err) console.log(err.message);
     console.table(rows);
     startApp();
@@ -81,7 +81,7 @@ function viewDepts() {
 
 function viewRoles() {
   pool.query(
-    "select roles.title, roles.salary, department.name from roles join department on roles.department_id = department.id",
+    "SELECT roles.title, roles.salary, department.name FROM roles JOIN department on roles.department_id = department.id",
     (err, { rows }) => {
       if (err) console.log(err.message);
       console.table(rows);
@@ -111,7 +111,7 @@ function addDepartment() {
     ])
     .then(({ department }) => {
       pool.query(
-        `INSERT into department (name) values ($1::varchar)`,
+        `INSERT into department (name) VALUES ($1::varchar)`,
         [department],
         (err) => {
           if (err) console.log(err.message);
@@ -163,10 +163,10 @@ async function addRole() {
 
 async function addEmployee() {
   const roles = await pool.query(
-    "select id as value, title as name from roles"
+    "SELECT id as VALUE, title as name FROM roles"
   );
   const managers = await pool.query(
-    "select id as value, first_name || ' ' || last_name as name from employees"
+    "SELECT id as VALUE, first_name || ' ' || last_name as name FROM employees"
   );
   inquirer
     .prompt([
