@@ -225,31 +225,17 @@ async function updateEmployeeRole() {
       },
       {
         type: "list",
-        name: "role_id",
+        name: "title",
         message: "What is the title of the new role?",
         choices: roles.rows,
       },
-      {
-        type: "input",
-        name: "salary",
-        message: "What is the salary for the employee's new role?",
-      },
-      {
-        type: "list",
-        name: "manager_id",
-        message: "What is the name of the employee's manager?",
-        choices: manager.rows,
-      },
-      {
-        type: "list",
-        name: "department_id",
-        message: "What department does the new role belong to?",
-        choices: departments.rows,
-      },
     ])
-    .then(({ employees, roles, salary, manager, department_id }) => {
+
+    .then((answers) => {
+      const { employees, newRole_id } = answers;
       pool.query(
-        `UPDATE `[(employees, roles, salary, manager, department_id)],
+        `UPDATE employees SET role_id = $1 WHERE first_name = $2`,
+        [employees, newRole_id],
         (err) => {
           if (err) {
             console.log(err.message);
