@@ -8,7 +8,6 @@ Employee Tracker is a content management system that is run from the command lin
 
 ## Table of Contents (Optional)
 
--
 - [Installation](#installation)
 - [Usage](#usage)
 - [Tests](#tests)
@@ -18,6 +17,10 @@ Employee Tracker is a content management system that is run from the command lin
 - [Questions](#questions)
 
 ## Installation
+
+Please review walk-through video:
+
+https://github.com/lavendarqueen/Employee-Tracker/blob/main/assets/video/employeeTrackerVideoWalkThroughC.mp4
 
 Installation of Employee-Tracker required importing the following libraries:
 
@@ -99,7 +102,6 @@ Please reach out by email or visit my GitHub account with any questions or comme
 
 - Email: lataillep@gmail.com
 - GitHub: https://github.com/lavendarqueen/
-- 
 - GitHub Repository: https://github.com/lavendarqueen/Employee-Tracker/
 
 ## User Story
