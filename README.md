@@ -8,6 +8,7 @@ Employee Tracker is a content management system that is run from the command lin
 
 ## Table of Contents (Optional)
 
+-
 - [Installation](#installation)
 - [Usage](#usage)
 - [Tests](#tests)
@@ -40,7 +41,7 @@ All of the functions associated with this project were tested using pgAdmin as s
 
 ![Test View All Employeess](/assets/images/ScreenshotViewAllEmployees.png)
 
-![Test Add An Employee](/assets/images/ScreenshoAddEmployee.png)
+![Test Add An Employee](/assets/images/ScreenshotAddEmployee.png)
 
 ![Test Update a Department](/assets/images/ScreenshotUpdateEmployeeRole.png)
 
@@ -48,7 +49,7 @@ All of the functions associated with this project were tested using pgAdmin as s
 
 I collaborated with the following individuals:
 
-- Fellow student Melissa Cade;
+- Fellow students Melissa Cade and Giordan Thompson;
 - Instructor Benjamin Machock;
 - Teacher's Assistant Casey Miller; and
 - Tutor Megan Meyers.
@@ -92,13 +93,22 @@ Any contributions made in the spirit of sharing ideas and concepts, will be grea
 4. Push to the Branch (git push origin feature/newFeature)
 5. Open a Pull Request
 
-# User Story
+## Questions
+
+Please reach out by email or visit my GitHub account with any questions or comments:
+
+- Email: lataillep@gmail.com
+- GitHub: https://github.com/lavendarqueen/
+- 
+- GitHub Repository: https://github.com/lavendarqueen/Employee-Tracker/
+
+## User Story
 
 AS A business owner
 I WANT to be able to view and manage the departments, roles, and employees in my company
 SO THAT I can organize and plan my business
 
-## Acceptance Criteria
+### Acceptance Criteria
 
 GIVEN a command-line application that accepts user input
 WHEN I start the application
