@@ -18,10 +18,6 @@ Employee Tracker is a content management system that is run from the command lin
 
 ## Installation
 
-Please review walk-through video:
-
-https://github.com/lavendarqueen/Employee-Tracker/blob/main/assets/video/employeeTrackerVideoWalkThroughC.mp4
-
 Installation of Employee-Tracker required importing the following libraries:
 
 1. npm i
@@ -30,11 +26,15 @@ Installation of Employee-Tracker required importing the following libraries:
 
 ## Usage
 
-Import of the libraries described above has already been done. The user needs only to enter the following input in the command line:
+Before use, please review the following walk-through video:
+
+<video controls src="employeeTrackerVideoWalkThroughC.mp4" title="Title"></video>
+
+After importing the libraries described above, the user needs only to enter the following input in the command line:
 
 node server.js
 
-A list of the functions mentioned in the description above appears and the user can select a function, such as "add an employee" using the down arrows on the keyboard. Employee-Tracker performs the function. The user can then verify the result by using the up/down arrows to view all employees as seen in the following screenshots.
+A list of the functions mentioned in the description above appears and the user can select a function, such as "add an employee" using the down arrows on the keyboard. Employee-Tracker performs the function. The user can then verify the result by using the up/down arrows to view all employees as seen in the following screenshots:
 
 ![List of Available Functions](/assets/images/ScreenshotFunctionList.png)
 
