@@ -28,7 +28,7 @@ Installation of Employee-Tracker required importing the following libraries:
 
 Before use, please review the following walk-through video:
 
-<video controls src="assets/videos/employeeTrackerVideoWalkThroughC.mp4" title="Title"></video>
+![Walk-Through-Video](/assets/videos/employeeTrackerVideoWalkThroughC.mp4)
 
 After importing the libraries described above, the user needs only to enter the following input in the command line:
 
